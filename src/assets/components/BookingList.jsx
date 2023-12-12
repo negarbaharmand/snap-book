@@ -14,20 +14,24 @@ export const BookingList = () => {
   const [bookingsPerPage] = useState(8);
   const navigate = useNavigate();
 
-  const handleButtonClick = (booking) => {
-    const dateTime = new Date(booking.dateTime);
+  const datePrettier = (dateTime) => {
+    const dateTimeObj = new Date(dateTime);
 
-    const bookingId = booking.id;
-    const bookingDate = dateTime.toISOString().split("T")[0];
-
-    const bookingTime = dateTime.toLocaleString("en-US", {
+    const bookingDate = dateTimeObj.toISOString().split("T")[0];
+    const bookingTime = dateTimeObj.toLocaleString("en-US", {
       timeZone: "Europe/Amsterdam",
       hour: "2-digit",
       minute: "2-digit",
       second: "2-digit",
     });
 
-    // console.log(bookingDate);
+    return [bookingDate, bookingTime];
+  };
+
+  const handleButtonClick = (booking) => {
+    const [bookingDate, bookingTime] = datePrettier(booking.dateTime);
+    const bookingId = booking.id;
+
     navigate(`/booking-form/${bookingId}/${bookingDate}/${bookingTime}`);
   };
 
@@ -85,25 +89,35 @@ export const BookingList = () => {
               <h2 className="mb-4">Booking List</h2>
             )}
             <div className="row">
-              {currentBookings.map((booking) => (
-                <div key={booking.id} className="card mb-4 col-md-3">
-                  <div className="card-body">
-                    <h5 className="card-title">{booking.dateTime}</h5>
+              {currentBookings.map((booking) => {
+                const [bookingDate, bookingTime] = datePrettier(
+                  booking.dateTime
+                );
+
+                return (
+                  <div key={booking.id} className="card mb-4 col-md-3">
+                    <div className="card-body">
+                      <h5 className="card-title">
+                        {bookingDate}
+                        <br />
+                        {bookingTime}
+                      </h5>
+                    </div>
+                    <div className="d-grid card-footer">
+                      <button
+                        type="button"
+                        className={`btn btn-${
+                          booking.booked ? "danger" : "success"
+                        }`}
+                        onClick={() => handleButtonClick(booking)}
+                        disabled={`${booking.booked ? "disabled" : ""}`}
+                      >
+                        {booking.booked ? "Booked" : "Available"}
+                      </button>
+                    </div>
                   </div>
-                  <div className="d-grid card-footer">
-                    <button
-                      type="button"
-                      className={`btn btn-${
-                        booking.booked ? "danger" : "success"
-                      }`}
-                      onClick={() => handleButtonClick(booking)}
-                      disabled={`${booking.booked ? "disabled" : ""}`}
-                    >
-                      {booking.booked ? "Booked" : "Available"}
-                    </button>
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </div>
