@@ -14,9 +14,23 @@ export const BookingList = () => {
   const [bookingsPerPage] = useState(8);
   const navigate = useNavigate();
 
-  const handleButtonClick = (id) => {
-    navigate(`/booking-form/${id}`);
+  const handleButtonClick = (booking) => {
+    const dateTime = new Date(booking.dateTime);
+
+    const bookingId = booking.id;
+    const bookingDate = dateTime.toISOString().split("T")[0];
+
+    const bookingTime = dateTime.toLocaleString("en-US", {
+      timeZone: "Europe/Amsterdam",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+    });
+
+    // console.log(bookingDate);
+    navigate(`/booking-form/${bookingId}/${bookingDate}/${bookingTime}`);
   };
+
   useEffect(() => {
     getBookings();
   }, []);
@@ -82,7 +96,7 @@ export const BookingList = () => {
                       className={`btn btn-${
                         booking.booked ? "danger" : "success"
                       }`}
-                      onClick={() => handleButtonClick(booking.id)}
+                      onClick={() => handleButtonClick(booking)}
                       disabled={`${booking.booked ? "disabled" : ""}`}
                     >
                       {booking.booked ? "Booked" : "Available"}
