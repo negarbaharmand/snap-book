@@ -1,13 +1,12 @@
 import "./App.css";
-import { BookingList } from "./assets/components/BookingList";
-import Header from "./assets/components/Header";
+import AppRouter from "./assets/components/AppRouter";
 
-function App() {
+const App = () => {
   return (
     <>
-      <BookingList />
+      <AppRouter />
     </>
   );
-}
+};
 
 export default App;
