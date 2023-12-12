@@ -10,6 +10,8 @@ export const BookingList = () => {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [bookingsPerPage] = useState(8);
   const navigate = useNavigate();
 
   const handleButtonClick = (id) => {
@@ -36,6 +38,15 @@ export const BookingList = () => {
     }
   };
 
+  const indexOfLastBooking = currentPage * bookingsPerPage;
+  const indexOfFirstBooking = indexOfLastBooking - bookingsPerPage;
+  const currentBookings = bookings.slice(
+    indexOfFirstBooking,
+    indexOfLastBooking
+  );
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   const renderBookings = () => {
     if (loading) {
       return <p>Loading...</p>;
@@ -56,11 +67,11 @@ export const BookingList = () => {
         </div>
         <div className="container mt-5">
           <div className="row">
-            {bookings && bookings.length !== 0 && (
+            {currentBookings && currentBookings.length !== 0 && (
               <h2 className="mb-4">Booking List</h2>
             )}
             <div className="row">
-              {bookings.map((booking) => (
+              {currentBookings.map((booking) => (
                 <div key={booking.id} className="card mb-4 col-md-3">
                   <div className="card-body">
                     <h5 className="card-title">{booking.dateTime}</h5>
@@ -81,6 +92,23 @@ export const BookingList = () => {
               ))}
             </div>
           </div>
+        </div>
+        {/* Pagination */}
+        <div className="pagination">
+          {Array.from(
+            { length: Math.ceil(bookings.length / bookingsPerPage) },
+            (_, index) => (
+              <button
+                className={`btn btn-outline-primary mx-1 mb-1 ${
+                  currentPage === index + 1 ? "active" : ""
+                }`}
+                key={index + 1}
+                onClick={() => paginate(index + 1)}
+              >
+                {index + 1}
+              </button>
+            )
+          )}
         </div>
       </div>
     );
