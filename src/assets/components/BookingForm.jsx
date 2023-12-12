@@ -1,13 +1,19 @@
 import { useState } from "react";
 import axios from "axios";
 
-const BookingForm = ({ onBookingSuccess }) => {
+const BookingForm = ({ id }) => {
   const baseURL = "http://localhost:8080";
   const [email, setEmail] = useState("");
+
+  const onBookingSuccess = () => {
+    console.log("Booking successful!");
+    alert("Booking successful! Thank you for booking.");
+  };
 
   const bookAppointment = async () => {
     try {
       const response = await axios.post(`${baseURL}/api/v1/booking/book`, {
+        id: id,
         email,
       });
       if (response.status === 201) {
@@ -16,6 +22,10 @@ const BookingForm = ({ onBookingSuccess }) => {
       }
     } catch (error) {
       console.error("Error booking appointment:", error);
+      alert(
+        "Appointment Already Booked: If needed, please check your existing bookings or use a different email for a new appointment."
+      );
+
       // Handle error, display a message to the user, etc.
     }
   };

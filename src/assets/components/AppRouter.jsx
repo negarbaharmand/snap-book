@@ -7,7 +7,8 @@ const AppRouter = () => {
     <Router>
       <Routes>
         <Route path="/" element={<BookingList />} />
-        <Route path="/booking-form" element={<BookingFormPage />} />
+        <Route path="/booking-form" element={<></>} />
+        <Route path="/booking-form/:bookingId" element={<BookingFormPage />} />
       </Routes>
     </Router>
   );

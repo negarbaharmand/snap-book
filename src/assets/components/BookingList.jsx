@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import BookingForm from "./BookingForm";
 
 export const BookingList = () => {
   const startDate = "2023-12-11";
@@ -13,8 +12,8 @@ export const BookingList = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  const handleButtonClick = () => {
-    navigate("/booking-form");
+  const handleButtonClick = (id) => {
+    navigate(`/booking-form/${id}`);
   };
   useEffect(() => {
     getBookings();
@@ -37,30 +36,6 @@ export const BookingList = () => {
     }
   };
 
-  // const bookingHandler = async (id, email) => {
-  //   axios
-  //     .post(baseURL + "/api/v1/booking/book", { id, email })
-  //     .then((response) => {
-  //       console.log("RESPONSE:", response);
-  //       if (response.status === 201) {
-  //         console.log("Booking is Done!");
-  //         getBookings();
-  //         onBookingSuccess();
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.log("ERROR:", error);
-  //       if (error.response) {
-  //         console.log(error.response.data);
-  //       }
-  //     });
-  // };
-
-  const onBookingSuccess = () => {
-    console.log("Booking successful!");
-    alert("Booking successful! Thank you for booking.");
-  };
-
   const renderBookings = () => {
     if (loading) {
       return <p>Loading...</p>;
@@ -73,6 +48,7 @@ export const BookingList = () => {
     if (bookings.length === 0) {
       return <p>No bookings available.</p>;
     }
+
     return (
       <div>
         <div className="row">
@@ -95,7 +71,7 @@ export const BookingList = () => {
                       className={`btn btn-${
                         booking.booked ? "danger" : "success"
                       }`}
-                      onClick={handleButtonClick}
+                      onClick={() => handleButtonClick(booking.id)}
                       disabled={`${booking.booked ? "disabled" : ""}`}
                     >
                       {booking.booked ? "Booked" : "Available"}
@@ -110,10 +86,5 @@ export const BookingList = () => {
     );
   };
 
-  return (
-    <div className="container">
-      {renderBookings()}
-      <BookingForm onBookingSuccess={onBookingSuccess} />
-    </div>
-  );
+  return <div className="container">{renderBookings()}</div>;
 };
