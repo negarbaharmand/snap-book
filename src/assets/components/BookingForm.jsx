@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 
-const BookingForm = ({ id }) => {
+const BookingForm = ({ id, date, time }) => {
   const baseURL = "http://localhost:8080";
   const [email, setEmail] = useState("");
 
@@ -55,6 +55,18 @@ const BookingForm = ({ id }) => {
         >
           Book
         </button>
+        <br />
+        <br />
+        <div>
+          <h3 className="card-title">Booking Details</h3>
+        </div>
+        <div className="card-body">
+          <div className="mb-3">
+            <p>ID: {id}</p>
+            <p>Date: {date}</p>
+            <p>Time: {time}</p>
+          </div>
+        </div>
       </div>
     </div>
   );
