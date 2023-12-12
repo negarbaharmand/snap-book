@@ -50,15 +50,7 @@ export const BookingList = () => {
     return (
       <div>
         <div className="row">
-          <div className="col">
-            <button
-              className="btn btn-info"
-              type="button"
-              onClick={getBookings}
-            >
-              Get Bookings
-            </button>
-          </div>
+          <div className="col"></div>
         </div>
         <div className="container mt-5">
           <div className="row">
@@ -84,7 +76,7 @@ export const BookingList = () => {
                         booking.booked ? "danger" : "success"
                       }`}
                       onClick={() =>
-                        bookBookingClickHandler(booking.id, "test.test@test.se")
+                        bookingHandler(booking.id, "test.test@test.se")
                       }
                       disabled={`${booking.booked ? "disabled" : ""}`}
                     >
@@ -100,7 +92,7 @@ export const BookingList = () => {
     );
   };
 
-  const bookBookingClickHandler = async (id, email) => {
+  const bookingHandler = async (id, email) => {
     axios
       .post(baseURL + "/api/v1/booking/book", { id, email })
       .then((response) => {
