@@ -11,7 +11,7 @@ export const BookingList = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [bookingsPerPage] = useState(8);
+  const [bookingsPerPage] = useState(9);
   const navigate = useNavigate();
 
   const datePrettier = (dateTime) => {
@@ -79,46 +79,48 @@ export const BookingList = () => {
     }
 
     return (
-      <div>
-        <div className="row">
-          <div className="col"></div>
-        </div>
-        <div className="container mt-5">
-          <div className="row">
+      <div className="container mt-5">
+        <div className="row justify-content-center">
+          <div className="col-md-8">
             {currentBookings && currentBookings.length !== 0 && (
-              <h2 className="mb-4">Booking List</h2>
-            )}
-            <div className="row">
-              {currentBookings.map((booking) => {
-                const [bookingDate, bookingTime] = datePrettier(
-                  booking.dateTime
-                );
+              <>
+                <div className="d-flex justify-content-center align-items-center mb-4">
+                  <h2 className="text-center">Booking List</h2>
+                </div>
 
-                return (
-                  <div key={booking.id} className="card mb-4 col-md-3">
-                    <div className="card-body">
-                      <h5 className="card-title">
-                        {bookingDate}
-                        <br />
-                        {bookingTime}
-                      </h5>
-                    </div>
-                    <div className="d-grid card-footer">
-                      <button
-                        type="button"
-                        className={`btn btn-${
-                          booking.booked ? "danger" : "success"
-                        }`}
-                        onClick={() => handleButtonClick(booking)}
-                        disabled={`${booking.booked ? "disabled" : ""}`}
-                      >
-                        {booking.booked ? "Booked" : "Available"}
-                      </button>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
+                <div className="row">
+                  {currentBookings.map((booking) => {
+                    const [bookingDate, bookingTime] = datePrettier(
+                      booking.dateTime
+                    );
+
+                    return (
+                      <div key={booking.id} className="card m-3 col-md-3 ">
+                        <div className="card-body m-3">
+                          <h5 className="card-title">
+                            {bookingDate}
+                            <br />
+                            {bookingTime}
+                          </h5>
+                        </div>
+                        <div className="d-grid card-footer">
+                          <button
+                            type="button"
+                            className={`btn btn-${
+                              booking.booked ? "danger" : "primary"
+                            }`}
+                            onClick={() => handleButtonClick(booking)}
+                            disabled={`${booking.booked ? "disabled" : ""}`}
+                          >
+                            {booking.booked ? "Booked" : "Available"}
+                          </button>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </>
+            )}
           </div>
         </div>
         {/* Pagination */}
