@@ -1,13 +1,16 @@
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const BookingForm = ({ id, date, time }) => {
   const baseURL = "http://localhost:8080";
   const [email, setEmail] = useState("");
+  const navigate = useNavigate();
 
   const onBookingSuccess = () => {
     console.log("Booking successful!");
     alert("Booking successful! Thank you for booking.");
+    navigate("/");
   };
 
   const bookAppointment = async () => {
@@ -17,7 +20,6 @@ const BookingForm = ({ id, date, time }) => {
         email,
       });
       if (response.status === 201) {
-        // Assuming the API returns booking details upon successful booking
         onBookingSuccess();
       }
     } catch (error) {
@@ -25,13 +27,11 @@ const BookingForm = ({ id, date, time }) => {
       alert(
         "Appointment Already Booked: If needed, please check your existing bookings or use a different email for a new appointment."
       );
-
-      // Handle error, display a message to the user, etc.
     }
   };
 
   return (
-    <div className="container-sm">
+    <div className="container-sm mt-5">
       <div className="card">
         <div className="card-header bg-primary text-white ">
           <h3 className="card-title">Booking</h3>
@@ -50,7 +50,7 @@ const BookingForm = ({ id, date, time }) => {
               onChange={(e) => setEmail(e.target.value)}
             />
             <small id="emailHelp" className="form-text text-muted">
-              We'll never share your email with anyone else.
+              We will never share your email with anyone else.
             </small>
           </div>
           <button
