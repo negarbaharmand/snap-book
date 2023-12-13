@@ -1,8 +1,6 @@
 import { Link } from "react-router-dom";
 
 const Header = () => {
-  const logo = "logo.jpg";
-
   const links = [
     { text: "Home", href: "/home" },
     { text: "Booking", href: "/booking" },
@@ -11,10 +9,10 @@ const Header = () => {
 
   return (
     <div>
-      <nav className="navbar navbar-expand-sm bg-dark navbar-dark">
+      <nav className="navbar navbar-expand-lg bg-body-tertiary sticky-top">
         <div className="container-fluid">
-          <a className="navbar-brand" href="#">
-            <img src={logo} width={100} height={30} alt={logo} />
+          <a className="navbar-brand" href="">
+            BookingApp
           </a>
           <button
             className="navbar-toggler"
