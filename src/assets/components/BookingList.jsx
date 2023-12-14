@@ -103,11 +103,11 @@ export const BookingList = () => {
                       <div key={booking.id} className="col">
                         <div className="card m-2">
                           <div className="card-body m-3">
-                            <h5 className="card-title">
+                            <h6 className="card-title">
                               {bookingDate}
                               <br />
                               {bookingTime}
-                            </h5>
+                            </h6>
                           </div>
                           <div className="d-grid card-footer">
                             <button
@@ -131,7 +131,7 @@ export const BookingList = () => {
           </div>
         </div>
         {/* Pagination */}
-        <div className="pagination">
+        <div className="pagination m-5 justify-content-center">
           {Array.from(
             { length: Math.ceil(bookings.length / bookingsPerPage) },
             (_, index) => (
