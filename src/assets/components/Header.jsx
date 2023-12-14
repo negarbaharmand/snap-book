@@ -4,7 +4,7 @@ const Header = () => {
   const links = [
     { text: "Home", href: "/home" },
     { text: "Booking", href: "/booking" },
-    { text: "Cancel Booking", href: "/cancel" },
+    { text: "Cancel Booking", href: "/cancelation-form" },
   ];
 
   return (

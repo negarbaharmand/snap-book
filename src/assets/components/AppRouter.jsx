@@ -14,7 +14,7 @@ const AppRouter = () => {
           path="/booking-form/:id/:date/:time"
           element={<BookingFormPage />}
         />
-        <Route path="/cancel" element={<CancelBookingPage />} />
+        <Route path="/cancelation-form" element={<CancelBookingPage />} />
         <Route path="/booking" element={<BookingFormPage />} />
       </Routes>
     </Router>
