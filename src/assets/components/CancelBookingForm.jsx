@@ -21,7 +21,7 @@ const CancelBookingForm = () => {
         email,
       });
       console.log("Cancellation Response:", response.data);
-      if (response.status === 200) {
+      if (response.status === 204) {
         onCancelSuccess();
       }
     } catch (error) {
