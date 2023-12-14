@@ -16,8 +16,6 @@ const BookingForm = ({ id, date, time }) => {
       position: "top-center",
       onAutoClose: () => navigate("/"),
     });
-    // alert("Success! Your ID has been saved in your clipboard!");
-    // navigate("/");
   };
 
   const bookAppointment = async () => {
@@ -31,28 +29,19 @@ const BookingForm = ({ id, date, time }) => {
         onBookingSuccess();
       }
     } catch (error) {
-      console.error("Error booking appointment:", error);
-      if (error.response && error.response.data) {
-        const errorMessage =
-          typeof error.response.data === "string"
-            ? error.response.data
-            : error.response.data.email;
-        alert(errorMessage);
-      } else {
-        alert("An error occurred while booking the appointment.");
-      }
+      const errorMessage =
+        typeof error.response.data === "string"
+          ? error.response.data
+          : error.response.data.email;
+      toast.error(errorMessage, {
+        position: "top-center",
+      });
     }
   };
 
   return (
     <>
-      <Toaster
-        toastOptions={{
-          style: {
-            background: "#d4edda",
-          },
-        }}
-      />
+      <Toaster richColors />
       <div className="container-sm mt-5">
         <div className="card">
           <div className="card-header bg-dark text-white">
