@@ -11,7 +11,7 @@ const Header = () => {
     <div>
       <nav className="navbar navbar-expand-lg bg-body-tertiary sticky-top">
         <div className="container-fluid">
-          <a className="navbar-brand" href="">
+          <a className="navbar-brand" href="/">
             BookingApp
           </a>
           <button
