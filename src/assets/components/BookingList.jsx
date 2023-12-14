@@ -3,15 +3,20 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 export const BookingList = () => {
-  const startDate = "2023-12-11";
-  const endDate = "2023-12-13";
+  const currentDate = new Date();
+  const startDate = currentDate.toISOString().slice(0, 10);
+
+  const endDateUnFormatted = new Date(currentDate);
+  endDateUnFormatted.setDate(currentDate.getDate() + 7);
+  const endDate = endDateUnFormatted.toISOString().slice(0, 10);
+
   const baseURL = "http://localhost:8080";
 
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [bookingsPerPage] = useState(9);
+  const [bookingsPerPage] = useState(16);
   const navigate = useNavigate();
 
   const datePrettier = (dateTime) => {
@@ -88,32 +93,34 @@ export const BookingList = () => {
                   <h2 className="text-center">Booking List</h2>
                 </div>
 
-                <div className="row">
+                <div className="row row-cols-1 row-cols-md-4 g-4">
                   {currentBookings.map((booking) => {
                     const [bookingDate, bookingTime] = datePrettier(
                       booking.dateTime
                     );
 
                     return (
-                      <div key={booking.id} className="card m-3 col-md-3 ">
-                        <div className="card-body m-3">
-                          <h5 className="card-title">
-                            {bookingDate}
-                            <br />
-                            {bookingTime}
-                          </h5>
-                        </div>
-                        <div className="d-grid card-footer">
-                          <button
-                            type="button"
-                            className={`btn btn-${
-                              booking.booked ? "danger" : "primary"
-                            }`}
-                            onClick={() => handleButtonClick(booking)}
-                            disabled={`${booking.booked ? "disabled" : ""}`}
-                          >
-                            {booking.booked ? "Booked" : "Available"}
-                          </button>
+                      <div key={booking.id} className="col">
+                        <div className="card m-2">
+                          <div className="card-body m-3">
+                            <h5 className="card-title">
+                              {bookingDate}
+                              <br />
+                              {bookingTime}
+                            </h5>
+                          </div>
+                          <div className="d-grid card-footer">
+                            <button
+                              type="button"
+                              className={`btn btn-${
+                                booking.booked ? "danger" : "primary"
+                              }`}
+                              onClick={() => handleButtonClick(booking)}
+                              disabled={`${booking.booked ? "disabled" : ""}`}
+                            >
+                              {booking.booked ? "Booked" : "Available"}
+                            </button>
+                          </div>
                         </div>
                       </div>
                     );
