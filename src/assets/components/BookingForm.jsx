@@ -24,9 +24,15 @@ const BookingForm = ({ id, date, time }) => {
       }
     } catch (error) {
       console.error("Error booking appointment:", error);
-      alert(
-        "Appointment Already Booked: If needed, please check your existing bookings or use a different email for a new appointment."
-      );
+      if (error.response && error.response.data) {
+        const errorMessage =
+          typeof error.response.data === "string"
+            ? error.response.data
+            : error.response.data.email;
+        alert(errorMessage);
+      } else {
+        alert("An error occurred while booking the appointment.");
+      }
     }
   };
 
