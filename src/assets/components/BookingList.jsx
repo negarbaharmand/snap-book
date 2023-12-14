@@ -87,7 +87,7 @@ export const BookingList = () => {
       <div className="container mt-4">
         <div className="row justify-content-center">
           <div className="col-md-8">
-            {currentBookings && currentBookings.length !== 0 && (
+            {currentBookings && currentBookings.length && (
               <>
                 <div className="d-flex justify-content-center align-items-center mb-4">
                   <h2 className="text-center">Booking List</h2>
@@ -116,7 +116,7 @@ export const BookingList = () => {
                                 booking.booked ? "danger" : "primary"
                               }`}
                               onClick={() => handleButtonClick(booking)}
-                              disabled={`${booking.booked ? "disabled" : ""}`}
+                              disabled={booking.booked}
                             >
                               {booking.booked ? "Booked" : "Available"}
                             </button>
