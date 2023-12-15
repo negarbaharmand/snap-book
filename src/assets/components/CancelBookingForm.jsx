@@ -11,7 +11,7 @@ const CancelBookingForm = () => {
 
   const onCancelSuccess = () => {
     console.log("Cancellation successful!");
-    toast.success("Your ID has been saved in your clipboard!", {
+    toast.success("Cancellation successful!", {
       position: "top-center",
       onAutoClose: () => navigate("/"),
     });
