@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Toaster, toast } from "sonner";
 
 const CancelBookingForm = () => {
   const baseURL = "http://localhost:8080";
@@ -10,8 +11,10 @@ const CancelBookingForm = () => {
 
   const onCancelSuccess = () => {
     console.log("Cancellation successful!");
-    alert("Cancellation successful! Thank you for using our service.");
-    navigate("/");
+    toast.success("Your ID has been saved in your clipboard!", {
+      position: "top-center",
+      onAutoClose: () => navigate("/"),
+    });
   };
 
   const cancelBooking = async () => {
@@ -31,7 +34,9 @@ const CancelBookingForm = () => {
           typeof error.response.data === "string"
             ? error.response.data
             : error.response.data.email;
-        alert(errorMessage);
+        toast.error(errorMessage, {
+          position: "top-center",
+        });
       } else {
         alert("An error occurred while canceling the booking.");
       }
@@ -39,52 +44,55 @@ const CancelBookingForm = () => {
   };
 
   return (
-    <div className="container-sm mt-5">
-      <div className="card">
-        <div className="card-header bg-danger text-white">
-          <h3 className="card-title">Cancel Booking</h3>
-        </div>
-        <div className="card-body">
-          <div className="form-group mb-3">
-            <label htmlFor="bookingId" className="form-label">
-              Booking ID:
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              id="bookingId"
-              placeholder="Enter Booking ID"
-              value={bookingId}
-              onChange={(e) => setBookingId(e.target.value)}
-            />
+    <>
+      <Toaster richColors />
+      <div className="container-sm mt-5">
+        <div className="card">
+          <div className="card-header bg-danger text-white">
+            <h3 className="card-title">Cancel Booking</h3>
           </div>
-          <div className="form-group mb-3">
-            <label htmlFor="email" className="form-label">
-              Email Address:
-            </label>
-            <input
-              type="email"
-              className="form-control"
-              id="email"
-              placeholder="Enter Your Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <small id="emailHelp" className="form-text text-muted">
-              We will never share your email with anyone else.
-            </small>
-          </div>
+          <div className="card-body">
+            <div className="form-group mb-3">
+              <label htmlFor="bookingId" className="form-label">
+                Booking ID:
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                id="bookingId"
+                placeholder="Enter Booking ID"
+                value={bookingId}
+                onChange={(e) => setBookingId(e.target.value)}
+              />
+            </div>
+            <div className="form-group mb-3">
+              <label htmlFor="email" className="form-label">
+                Email Address:
+              </label>
+              <input
+                type="email"
+                className="form-control"
+                id="email"
+                placeholder="Enter Your Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <small id="emailHelp" className="form-text text-muted">
+                We will never share your email with anyone else.
+              </small>
+            </div>
 
-          <button
-            type="button"
-            className="btn btn-danger"
-            onClick={cancelBooking}
-          >
-            Cancel Booking
-          </button>
+            <button
+              type="button"
+              className="btn btn-danger"
+              onClick={cancelBooking}
+            >
+              Cancel Booking
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
