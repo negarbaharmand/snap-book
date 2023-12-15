@@ -1,10 +1,10 @@
-# Booking App
+# Snap Book App
 
 This repository contains a full-stack booking system built with React for the frontend and a Java backend. It enables users to perform booking-related actions.
 
 ## Demo
 
-![Booking App Screencast](/booking-app-demo.gif)
+![Snap Book Screencast](/booking-app-demo.gif)
 
 ## Getting Started
 
@@ -27,7 +27,8 @@ This will start the backend server.
 
 To install and run the React app, follow these steps:
 
-1. Run the following commands:
+1. Navigate to the project's root directory.
+2. Run the following commands:
 
 ```bash
 npm install # Install dependencies
