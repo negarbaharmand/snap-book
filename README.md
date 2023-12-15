@@ -28,8 +28,7 @@ This will start the backend server.
 
 To install and run the React app, follow these steps:
 
-1. Navigate to the `frontend/` directory.
-2. Run the following commands:
+1. Run the following commands:
 
 ```bash
 npm install # Install dependencies
