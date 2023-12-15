@@ -1,6 +1,5 @@
 # Booking App
 
-This is a booking app built with React, bootstrap 5
 This repository contains a full-stack booking system built with React for the frontend and a Java backend. It enables users to perform booking-related actions.
 
 ## Demo
